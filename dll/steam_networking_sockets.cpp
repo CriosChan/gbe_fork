@@ -2022,7 +2022,7 @@ void Steam_Networking_Sockets::RunCallbacks()
     auto current_time = std::chrono::steady_clock::now();
     auto socket_conn = std::begin(sbcs->connect_sockets);
     while (socket_conn != std::end(sbcs->connect_sockets)) {
-        if (socket_conn->second.connect_requests_sent < 10 && socket_conn->second.status == CONNECT_SOCKET_CONNECTING && (std::chrono::duration_cast<std::chrono::milliseconds>(current_time - socket_conn->second.connect_request_last_sent).count() > 6000)) {
+        if (socket_conn->second.connect_requests_sent < 10 && socket_conn->second.status == CONNECT_SOCKET_CONNECTING && (std::chrono::duration_cast<std::chrono::milliseconds>(current_time - socket_conn->second.connect_request_last_sent).count() > 60000)) {
             send_packet_new_connection(socket_conn->first);
             socket_conn->second.connect_request_last_sent = current_time;
             socket_conn->second.connect_requests_sent += 1;
