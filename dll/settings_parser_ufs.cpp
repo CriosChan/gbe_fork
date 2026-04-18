@@ -251,8 +251,9 @@ static std::filesystem::path factory_default_cloud_dir(CSimpleIniA *ini, class S
 // app::cloud_save
 void parse_cloud_save(CSimpleIniA *ini, class Settings *settings_client, class Settings *settings_server, class Local_Storage *local_storage)
 {
-    constexpr static bool DEFAULT_CREATE_DEFAULT_DIR = true;
-    constexpr static bool DEFAULT_CREATE_SPECIFIC_DIRS = true;
+#ifndef LOBBY_CONNECT
+    constexpr static bool DEFAULT_CREATE_DEFAULT_DIR = false;
+    constexpr static bool DEFAULT_CREATE_SPECIFIC_DIRS = false;
     constexpr static const char SPECIFIC_INI_KEY[] =
         "app::cloud_save::"
         // then concat the OS specific part
@@ -317,4 +318,5 @@ void parse_cloud_save(CSimpleIniA *ini, class Settings *settings_client, class S
             PRINT_DEBUG("    [X] cloud save dir has unprocessed identifiers, skipping");
         }
     }
+#endif // LOBBY_CONNECT
 }
